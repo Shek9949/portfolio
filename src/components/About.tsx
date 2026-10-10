@@ -32,8 +32,8 @@ export const About: React.FC = () => {
     },
     {
       icon: <Brain className="w-5 h-5 text-[#FF5C28]" />,
-      title: "AI & Data Engineering",
-      desc: "Exploring machine learning concepts, SCADA telemetry data analysis, and predictive modeling algorithms."
+      title: "AI & Signal Classification",
+      desc: "Applied machine learning for multimodal wearable signal classification, physiological feature engineering, and predictive modeling."
     }
   ];
 

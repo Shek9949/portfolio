@@ -5,10 +5,10 @@ import { ProjectModal } from './ProjectModal';
 import { 
   Activity, 
   CheckCircle2, 
-  AlertCircle, 
-  Layers, 
   ArrowUpRight,
-  Database
+  Cpu,
+  Target,
+  Server
 } from 'lucide-react';
 import { GithubIcon } from './SocialIcons';
 
@@ -22,6 +22,19 @@ export const Projects: React.FC = () => {
     return p.type === filterType;
   });
 
+  const getCategoryBadge = (type: string) => {
+    switch (type) {
+      case 'backend':
+        return 'Backend & Systems';
+      case 'ml':
+        return 'Machine Learning & Signals';
+      case 'hpc':
+        return 'High-Performance Computing';
+      default:
+        return 'Engineering Project';
+    }
+  };
+
   return (
     <section id="projects" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
@@ -33,7 +46,7 @@ export const Projects: React.FC = () => {
             Featured <span className="text-[#FF5C28]">Projects</span>
           </h2>
           <p className="text-slate-600 text-sm sm:text-base max-w-2xl font-medium">
-            Practical software applications, database implementations, and SCADA telemetry research.
+            Backend architectures, machine learning physiological signal classification, and high-performance parallel computing.
           </p>
         </div>
 
@@ -41,9 +54,9 @@ export const Projects: React.FC = () => {
         <div className="flex flex-wrap items-center gap-2">
           {[
             { id: 'all', label: 'All Projects' },
-            { id: 'full-stack', label: 'Full-Stack & Web' },
             { id: 'backend', label: 'Backend & Systems' },
-            { id: 'dashboard', label: 'SCADA Research Dashboard' }
+            { id: 'ml', label: 'Machine Learning & Signals' },
+            { id: 'hpc', label: 'HPC & Parallel Computing' }
           ].map(tab => (
             <button
               key={tab.id}
@@ -62,72 +75,119 @@ export const Projects: React.FC = () => {
         {/* Project Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => {
-            const isScada = project.type === 'dashboard';
-
             return (
               <div
                 key={project.id}
-                className="alex-card flex flex-col justify-between overflow-hidden group"
+                className="alex-card flex flex-col justify-between overflow-hidden group hover:border-black/15 transition-all"
               >
                 <div>
                   
-                  {/* Visual Header Banner */}
-                  {isScada ? (
+                  {/* Visual Header Banner based on Project Type */}
+                  {project.type === 'hpc' ? (
                     <div className="p-5 bg-black text-white relative overflow-hidden">
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center space-x-2">
-                          <Activity className="w-4 h-4 text-[#FF5C28] animate-pulse" />
-                          <span className="text-xs font-mono font-bold text-[#FF5C28]">SCADA Telemetry Active</span>
+                          <Cpu className="w-4 h-4 text-[#FF5C28] animate-pulse" />
+                          <span className="text-xs font-mono font-bold text-[#FF5C28]">OpenMP Multicore Active</span>
                         </div>
                         <span className="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded-md text-slate-300">
-                          Research Model
+                          HPC Framework
                         </span>
                       </div>
-                      
-                      {/* Telemetry Baseline Widgets */}
                       <div className="grid grid-cols-2 gap-2 mt-2">
                         <div className="p-2.5 rounded-xl bg-white/10 border border-white/10">
-                          <div className="text-[10px] text-slate-400">Rotor Velocity</div>
-                          <div className="text-sm font-bold font-mono text-white">14.8 RPM</div>
+                          <div className="text-[10px] text-slate-400">Dataset</div>
+                          <div className="text-xs font-bold font-mono text-white truncate">Chromosome X Ref</div>
                         </div>
                         <div className="p-2.5 rounded-xl bg-white/10 border border-white/10">
-                          <div className="text-[10px] text-slate-400">Anomaly Index</div>
-                          <div className="text-sm font-bold font-mono text-[#FF5C28]">0.024 RMS</div>
+                          <div className="text-[10px] text-slate-400">Parallel Scheduling</div>
+                          <div className="text-xs font-bold font-mono text-[#FF5C28] truncate">Wavefront Tiling</div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : project.type === 'ml' ? (
+                    <div className="p-5 bg-black text-white relative overflow-hidden">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center space-x-2">
+                          <Activity className="w-4 h-4 text-emerald-400 animate-pulse" />
+                          <span className="text-xs font-mono font-bold text-emerald-400">Multimodal Biosignals</span>
+                        </div>
+                        <span className="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded-md text-slate-300">
+                          Wearable ML
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 mt-2">
+                        <div className="p-2.5 rounded-xl bg-white/10 border border-white/10">
+                          <div className="text-[10px] text-slate-400">Standard Accuracy</div>
+                          <div className="text-sm font-bold font-mono text-white">~84%</div>
+                        </div>
+                        <div className="p-2.5 rounded-xl bg-white/10 border border-white/10">
+                          <div className="text-[10px] text-slate-400">Subject-Indep. CV</div>
+                          <div className="text-sm font-bold font-mono text-emerald-400">72%</div>
                         </div>
                       </div>
                     </div>
                   ) : (
-                    <div className="p-5 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        {project.type === 'full-stack' ? (
-                          <Layers className="w-5 h-5 text-[#FF5C28]" />
-                        ) : (
-                          <Database className="w-5 h-5 text-slate-800" />
-                        )}
-                        <span className="text-xs font-mono font-bold text-slate-900 uppercase">
-                          {project.type}
+                    <div className="p-5 bg-slate-900 text-white relative overflow-hidden">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center space-x-2">
+                          <Server className="w-4 h-4 text-[#FF5C28]" />
+                          <span className="text-xs font-mono font-bold text-[#FF5C28]">Spring Boot & JWT</span>
+                        </div>
+                        <span className="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded-md text-slate-300">
+                          Backend Core
                         </span>
                       </div>
-                      {project.isRepoVerified ? (
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                          Verified Repo
-                        </span>
-                      ) : (
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">
-                          Pending Link
-                        </span>
-                      )}
+                      <div className="grid grid-cols-2 gap-2 mt-2">
+                        <div className="p-2.5 rounded-xl bg-white/10 border border-white/10">
+                          <div className="text-[10px] text-slate-400">Access Control</div>
+                          <div className="text-xs font-bold font-mono text-white truncate">Stateless RBAC</div>
+                        </div>
+                        <div className="p-2.5 rounded-xl bg-white/10 border border-white/10">
+                          <div className="text-[10px] text-slate-400">Data Architecture</div>
+                          <div className="text-xs font-bold font-mono text-[#FF5C28] truncate">Soft Deletes / JPA</div>
+                        </div>
+                      </div>
                     </div>
                   )}
 
                   {/* Card Content Body */}
                   <div className="p-6 space-y-4">
                     <div>
-                      <h3 className="text-xl font-extrabold text-[#111111] group-hover:text-[#FF5C28] transition-colors">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                          {getCategoryBadge(project.type)}
+                        </span>
+                        {project.isRepoVerified ? (
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                            Verified Repo
+                          </span>
+                        ) : (
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-600 border border-slate-200">
+                            Engineering Project
+                          </span>
+                        )}
+                      </div>
+                      <h3 className="text-lg sm:text-xl font-extrabold text-[#111111] group-hover:text-[#FF5C28] transition-colors leading-snug">
                         {project.title}
                       </h3>
-                      <p className="text-xs font-mono text-[#FF5C28] font-semibold mt-1">{project.subtitle}</p>
+                      <p className="text-xs font-mono text-[#FF5C28] font-semibold mt-1">
+                        {project.subtitle}
+                      </p>
                     </div>
+
+                    {/* Objective Box if present */}
+                    {project.objective && (
+                      <div className="p-3 rounded-xl bg-[#FF5C28]/5 border border-[#FF5C28]/20 text-xs">
+                        <div className="flex items-center space-x-1.5 text-[#FF5C28] font-bold uppercase text-[10px] tracking-wider mb-1">
+                          <Target className="w-3.5 h-3.5" />
+                          <span>Objective</span>
+                        </div>
+                        <p className="text-slate-700 font-medium leading-relaxed text-xs">
+                          {project.objective}
+                        </p>
+                      </div>
+                    )}
 
                     <p className="text-slate-600 text-xs sm:text-sm leading-relaxed line-clamp-3">
                       {project.description}
@@ -136,9 +196,9 @@ export const Projects: React.FC = () => {
                     {/* Features List Brief */}
                     <div className="space-y-1.5 pt-1">
                       {project.implementedFeatures.slice(0, 3).map((feat, fIdx) => (
-                        <div key={fIdx} className="flex items-center space-x-2 text-xs text-slate-600">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#FF5C28] shrink-0" />
-                          <span className="truncate">{feat}</span>
+                        <div key={fIdx} className="flex items-start space-x-2 text-xs text-slate-600">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#FF5C28] shrink-0 mt-0.5" />
+                          <span className="line-clamp-2">{feat}</span>
                         </div>
                       ))}
                     </div>
@@ -181,11 +241,11 @@ export const Projects: React.FC = () => {
                     </a>
                   ) : (
                     <div 
-                      className="py-2.5 px-3 rounded-full bg-slate-50 border border-amber-200 text-[11px] text-amber-700 flex items-center space-x-1"
-                      title="Repository URL pending verification"
+                      className="py-2.5 px-3 rounded-full bg-slate-50 border border-slate-200 text-[11px] text-slate-600 flex items-center space-x-1"
+                      title="Project specs documented"
                     >
-                      <AlertCircle className="w-3.5 h-3.5 text-amber-600" />
-                      <span>Pending Repo</span>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Documented</span>
                     </div>
                   )}
                 </div>

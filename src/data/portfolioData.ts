@@ -4,18 +4,27 @@ export interface SkillCategory {
   skills: { name: string; tag?: string }[];
 }
 
+export interface ProjectMetric {
+  label: string;
+  value: string;
+  detail?: string;
+  status?: 'normal' | 'warning' | 'optimal';
+}
+
 export interface Project {
   id: string;
   title: string;
   subtitle: string;
   description: string;
+  objective?: string;
   problemStatement?: string;
   implementedFeatures: string[];
   techStack: string[];
   githubUrl?: string;
   isRepoVerified: boolean;
-  type: 'full-stack' | 'backend' | 'research' | 'dashboard';
+  type: 'backend' | 'ml' | 'hpc' | 'full-stack' | 'research' | 'dashboard';
   highlights?: string[];
+  metrics?: ProjectMetric[];
   scadaMetrics?: { label: string; value: string; status: 'normal' | 'warning' | 'optimal' }[];
 }
 
@@ -175,61 +184,118 @@ export const portfolioData: PortfolioData = {
 
   projects: [
     {
-      id: "hr-management-system",
-      title: "HR Management System",
-      subtitle: "Employee & Organizational Workflow Management Software",
-      description: "A comprehensive software application focused on organizing HR-related information, structuring employee records, and simplifying administrative management workflows.",
-      problemStatement: "Organizations need a centralized, structured system to manage employee data, track departmental structures, and eliminate manual record keeping.",
+      id: "carwashpro-management-system",
+      title: "CarWashPro: Multi-Branch Car Wash Management System",
+      subtitle: "Multi-Branch Backend & Enterprise Vehicle Service Management Platform",
+      description: "Designed and built a backend application from scratch, handling system design, database modelling, API development, validation, and testing for multi-branch car wash operations.",
+      problemStatement: "Multi-branch automotive service centers face challenges in synchronizing cross-branch operations, enforcing secure role-based access, ensuring soft deletion for transaction audits, and maintaining data consistency across high-volume booking workflows.",
       implementedFeatures: [
-        "Centralized employee directory and profile tracking",
-        "Role and departmental hierarchy management",
-        "Structured data views with responsive UI interface",
-        "Modular codebase structured in TypeScript and modern web standards",
-        "Streamlined navigation for HR administrative tasks"
+        "Designed and built a backend application from scratch, handling system design, database modelling, API development, validation, and testing.",
+        "Implemented secure authentication and authorization using JWT and Spring Security with stateless session management and role-based access control.",
+        "Developed Vehicle Management and Service Catalog modules with CRUD operations, soft deletion, ownership validation, duplicate prevention, and centralized exception handling.",
+        "Used AI coding tools to accelerate development and improve code quality, with Git for version control and Postman for end-to-end API testing."
       ],
-      techStack: ["TypeScript", "CSS", "JavaScript", "HTML"],
-      githubUrl: "https://github.com/Shek9949/HR-management",
-      isRepoVerified: true,
-      type: "full-stack"
-    },
-    {
-      id: "hospital-management-system",
-      title: "Hospital Management System",
-      subtitle: "Healthcare Operations & Patient Record Application",
-      description: "An application designed to streamline hospital operations by centralizing patient information, doctor scheduling, department records, and medical appointments.",
-      problemStatement: "Healthcare facilities struggle with fragmented appointment bookings and disconnected patient history records.",
-      implementedFeatures: [
-        "Patient registration and medical history management",
-        "Doctor assignment and department scheduling",
-        "Appointment tracking and status updates",
-        "Structured database query management for quick data retrieval"
+      techStack: [
+        "Java",
+        "Spring Boot",
+        "Spring Security",
+        "JWT",
+        "Spring Data JPA",
+        "Hibernate",
+        "MySQL",
+        "REST APIs",
+        "Git",
+        "Postman"
       ],
-      techStack: ["Java", "MySQL", "SQL", "OOP Design"],
       githubUrl: "",
       isRepoVerified: false,
-      type: "backend"
+      type: "backend",
+      highlights: [
+        "Stateless JWT Authentication",
+        "Role-Based Access Control (RBAC)",
+        "Soft Deletion & Ownership Validation",
+        "Centralized Exception Handling"
+      ],
+      metrics: [
+        { label: "Security & Auth", value: "JWT + Spring Security", detail: "Stateless RBAC", status: "optimal" },
+        { label: "Database ORM", value: "Hibernate / JPA", detail: "MySQL Relational Model", status: "optimal" },
+        { label: "Data Integrity", value: "Soft Deletes", detail: "Duplicate Prevention", status: "optimal" },
+        { label: "Testing Suite", value: "Postman & Git", detail: "End-to-End REST Testing", status: "optimal" }
+      ]
     },
     {
-      id: "wind-turbine-fault-detection",
-      title: "Wind Turbine Fault Detection and Monitoring",
-      subtitle: "Academic SCADA Data Analysis & Early Anomaly Detection",
-      description: "An academic research project investigating wind turbine SCADA (Supervisory Control and Data Acquisition) telemetry to identify abnormal operating behaviors and support early fault detection.",
-      problemStatement: "Wind turbines experience costly downtime due to unpredicted mechanical wear; continuous SCADA data telemetry monitoring can flag early anomalies.",
+      id: "stress-detection-system",
+      title: "Stress Detection System: Multimodal Wearable Signal Classification",
+      subtitle: "Multimodal Wearable Physiological Signal Classification & Machine Learning Pipeline",
+      description: "A machine learning and physiological signal processing pipeline to ingest, clean, normalize, and classify multimodal telemetry from wearable sensors to accurately identify human stress states.",
+      problemStatement: "Accurately identifying human stress levels from wearable device telemetry requires filtering high-noise physiological signals and generalizing predictive classifiers across diverse, unseen individuals.",
       implementedFeatures: [
-        "SCADA sensor data analysis and noise filtering",
-        "Establishing healthy operating baseline parameters",
-        "Sensor behavior anomaly signal evaluation",
-        "Early fault detection research and telemetry visualization"
+        "Developed a data processing pipeline to ingest, clean, normalize, and process multimodal physiological signals from wearable devices, including heart rate (HR), electrodermal activity (EDA), blood volume pulse (BVP), skin temperature, and accelerometer data.",
+        "Trained and evaluated ten machine learning classifiers, achieving approximately 84% accuracy under standard evaluation and 72% under subject-independent cross-validation.",
+        "Applied Principal Component Analysis (PCA) for feature analysis and identified predictive physiological signals to inform model selection and classification efficiency."
       ],
-      techStack: ["Python", "SCADA Telemetry Analysis", "Data Science", "Anomaly Detection"],
+      techStack: [
+        "Python",
+        "Pandas",
+        "NumPy",
+        "Scikit-learn",
+        "Matplotlib",
+        "Signal Processing",
+        "Feature Engineering"
+      ],
       githubUrl: "",
       isRepoVerified: false,
-      type: "dashboard",
-      scadaMetrics: [
-        { label: "Rotor Velocity Baseline", value: "14.8 RPM", status: "optimal" },
-        { label: "Gearbox Temperature", value: "62.4 °C", status: "normal" },
-        { label: "Vibration Spectral Anomaly", value: "0.024 RMS", status: "normal" },
-        { label: "Generator Efficiency", value: "94.2 %", status: "optimal" }
+      type: "ml",
+      highlights: [
+        "84% Standard Evaluation Accuracy",
+        "72% Subject-Independent CV",
+        "10 Machine Learning Classifiers",
+        "5 Multimodal Sensor Signals (HR, EDA, BVP, TEMP, ACC)"
+      ],
+      metrics: [
+        { label: "Standard Accuracy", value: "~84%", detail: "Benchmark Evaluation", status: "optimal" },
+        { label: "Cross-Validation", value: "72%", detail: "Subject-Independent CV", status: "optimal" },
+        { label: "Classifiers Tested", value: "10 Models", detail: "Scikit-learn Suite", status: "optimal" },
+        { label: "Sensor Modalities", value: "5 Signals", detail: "HR, EDA, BVP, TEMP, ACC", status: "optimal" }
+      ]
+    },
+    {
+      id: "genome-sequence-alignment-framework",
+      title: "Performance-Aware Adaptive Genome Sequence Alignment Framework for Multicore CPUs",
+      subtitle: "Adaptive High-Performance Parallel DNA Sequence Alignment on Multicore CPUs",
+      description: "An adaptive high-performance DNA sequence alignment framework integrating parallel dynamic programming, tiled matrix computation, wavefront scheduling, OpenMP multithreading, and banded alignment.",
+      objective: "To investigate how adaptive algorithm selection and multicore CPU parallelism can improve DNA sequence alignment performance while maintaining correctness.",
+      problemStatement: "Exact DNA sequence alignment is computationally intensive; scaling dynamic programming across multicore CPUs demands dependency-aware wavefront scheduling and adaptive algorithm selection based on sequence characteristics and thread availability.",
+      implementedFeatures: [
+        "Developed an adaptive DNA sequence alignment framework integrating sequential dynamic programming, tiled computation, wavefront scheduling, OpenMP multithreading, and banded alignment.",
+        "Implemented tile-based matrix computation with dependency-aware scheduling to enable parallel execution across multiple CPU threads while preserving alignment correctness.",
+        "Designed workload-aware strategy selection using sequence characteristics, estimated difference rates, workload size, and available threads.",
+        "Evaluated performance using real chromosome X reference data and controlled synthetic query sequences, measuring execution time, speedup, thread utilization, and computational workload.",
+        "Developed benchmarking and visualization workflows to examine tile-level execution timelines, workload distribution, and scalability across thread counts."
+      ],
+      techStack: [
+        "C++",
+        "OpenMP",
+        "Dynamic Programming",
+        "Parallel Computing",
+        "High-Performance Computing (HPC)",
+        "Python",
+        "Matplotlib"
+      ],
+      githubUrl: "",
+      isRepoVerified: false,
+      type: "hpc",
+      highlights: [
+        "Real Chromosome X Reference Data",
+        "Tile-Based Wavefront Scheduling",
+        "Workload-Aware Adaptive Selection",
+        "OpenMP Multithreading Scalability"
+      ],
+      metrics: [
+        { label: "Dataset Evaluated", value: "Chromosome X", detail: "Real Reference Genomic Data", status: "optimal" },
+        { label: "Parallel Framework", value: "OpenMP Multicore", detail: "Wavefront Dependency Scheduling", status: "optimal" },
+        { label: "Algorithm Strategy", value: "Adaptive DP", detail: "Banded & Tiled Alignment", status: "optimal" },
+        { label: "Benchmarking", value: "Python & Matplotlib", detail: "Tile Execution Timelines", status: "optimal" }
       ]
     }
   ],

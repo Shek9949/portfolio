@@ -48,13 +48,15 @@ export const Hero: React.FC = () => {
             <br />
             <span className="text-[#FF5C28] font-extrabold">SRM University.</span>
             
-            {/* Status Pill Badge: Open to work */}
-            <span className="inline-flex items-center space-x-2 px-3.5 py-1.5 ml-3 sm:ml-4 rounded-full bg-white border border-black/10 text-xs font-semibold text-slate-800 shadow-sm align-middle">
-              <span className="relative flex h-2.5 w-2.5">
+            {/* Status Pill Badge: Open to opportunities */}
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 ml-3 sm:ml-4 rounded-full bg-white border border-black/10 text-xs font-semibold text-slate-800 shadow-sm align-middle tracking-normal">
+              <span className="relative flex h-2.5 w-2.5 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
               </span>
-              <span>Open to opportunities</span>
+              <span className="tracking-normal text-slate-800 font-semibold whitespace-nowrap">
+                Open to opportunities
+              </span>
             </span>
           </h1>
 
